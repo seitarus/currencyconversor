@@ -51,12 +51,8 @@ extension CurrencyConverterPresenter: ProductsViewObserver {
             
             if transaction.sku == product.sku {
                 
-                print( "Transaction: \(transaction.amount) \(transaction.currency)" )
-                
                 productTransactions.append(transaction)
-                
-//                let convertedAmount = conversor.convert( from: Currency(name:transaction.currency), to: toCurrency, cost: Double(transaction.amount) ?? 0.0 )
-                
+                                
                 let rate = conversor.convert( from: Currency(name:transaction.currency), to: toCurrency)
                 
                 var convertedAmount = 0.0
@@ -65,18 +61,13 @@ extension CurrencyConverterPresenter: ProductsViewObserver {
                     convertedAmount = rate * amount
                 }
                 
-//                let convertedAmount = rate * Double(transaction.amount) ?? 0.0
-                
                 total += convertedAmount
-                
             }
         }
         
         let transaction = Transaction(sku: product.sku, amount: String(format: "%f", total), currency: toCurrency.name)
      
         productTransactions.append( transaction )
-        
-        print ( "TOTAL EN EUR: \(total) ")
             
         return productTransactions
             
